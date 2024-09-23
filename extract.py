@@ -31,7 +31,7 @@ def load_oracle_to_mysql(query,table_name):
 if __name__=="__main__":
     load_csv_mysql('sales_data.csv','staging_sales')
     load_csv_mysql('product_data.csv','staging_product')
-    load_xml_mysql('inventory_data.xml','staging_invenstory')
+    load_xml_mysql('inventory_data.xml','staging_inventory')
     load_json_mysql('supplier_data.json','staging_supplier')
     load_oracle_to_mysql("select * from stores",'staging_store')
     

@@ -1,15 +1,27 @@
 import pandas as pd
 import json
 from sqlalchemy import create_engine,text
+from script.config import MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE
 import logging
+
+
 # Configure logging
-logging.basicConfig(level=logging.INFO)
+#logging.basicConfig(level=logging.INFO)
+#logger = logging.getLogger(__name__)
+
+# Configure the logging
+logging.basicConfig(
+    filename='logs/etlprocess.log',  # Name of the log file
+    filemode='a',        # 'a' to append, 'w' to overwrite
+    format='%(asctime)s - %(levelname)s - %(message)s',  # Log format
+    level=logging.INFO    # Set the logging level
+)
 logger = logging.getLogger(__name__)
 
 
-
 # create mysql database commection
-mysql_engine = create_engine('mysql+pymysql://root:Admin%40143@localhost:3308/enterpriseretaildwh')
+#mysql_engine = create_engine('mysql+pymysql://root:Admin%40143@localhost:3308/enterpriseretaildwh')
+mysql_engine = create_engine(f'mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DATABASE}')
 
 
 def load_sales_fact():
@@ -54,6 +66,7 @@ def load_inventory_fact():
             logger.info("Data loaded into inventory_levels_by_store.")
     except Exception as e:
         logger.error("An error occurred while loading fact_inventory: %s", e, exc_info=True)
+        
 
 
 def load_monthly_sales_summary():
@@ -98,8 +111,11 @@ def load_inventory_levels_by_store():
 
 
 if __name__ == "__main__":
+    logger.info("Data Loading started...... ")
     load_sales_fact()
     load_inventory_fact()
     load_monthly_sales_summary()
     load_inventory_levels_by_store()
+    logger.info("Data Loading completed successfully...... ")
+    
 

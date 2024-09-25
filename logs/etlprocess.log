@@ -1,0 +1,373 @@
+2024-09-25 08:15:11,469 - INFO - Data Extraction started...... 
+2024-09-25 08:15:12,398 - INFO - Data Extraction completed successfully...... 
+2024-09-25 08:18:10,175 - INFO - Data Loading started...... 
+2024-09-25 08:18:10,192 - INFO - Executing load_inventory_levels_by_store query.
+2024-09-25 08:18:10,219 - INFO - Data loaded into inventory_levels_by_store.
+2024-09-25 08:18:10,220 - INFO - Executing load_inventory_levels_by_store query.
+2024-09-25 08:18:10,235 - INFO - Data loaded into inventory_levels_by_store.
+2024-09-25 08:18:10,235 - INFO - Executing load_inventory_levels_by_store query.
+2024-09-25 08:18:10,248 - INFO - Data loaded into inventory_levels_by_store.
+2024-09-25 08:18:10,249 - INFO - Executing load_inventory_levels_by_store query.
+2024-09-25 08:18:10,264 - INFO - Data loaded into inventory_levels_by_store.
+2024-09-25 08:18:10,265 - INFO - Data Loading completed successfully...... 
+2024-09-25 08:20:56,045 - INFO - Data Extraction started...... 
+2024-09-25 08:20:56,758 - INFO - Data Extraction completed successfully...... 
+2024-09-25 08:21:01,921 - INFO - Data Transfromation started...... 
+2024-09-25 08:21:02,374 - INFO - Data Transfromation completed successfully...... 
+2024-09-25 08:21:06,525 - INFO - Data Loading started...... 
+2024-09-25 08:21:06,538 - INFO - Executing load_inventory_levels_by_store query.
+2024-09-25 08:21:06,559 - ERROR - An error occurred while loading sales_fact: (pymysql.err.ProgrammingError) (1146, "Table 'enterpriseretaildwh.fact_sales' doesn't exist")
+[SQL: 
+    INSERT INTO fact_sales (sales_id, product_id, store_id, quantity, total_sales, sale_date)
+    SELECT
+        sales_id,
+        product_id,
+        store_id,
+        quantity,
+        total_sales,
+        sale_date
+    FROM sales_with_details;
+    ]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1970, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Python310\lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Python310\lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 822, in _read_query_result
+    result.read()
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "C:\Python310\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Python310\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.ProgrammingError: (1146, "Table 'enterpriseretaildwh.fact_sales' doesn't exist")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\EnterpriseRetailDWH\script\load.py", line 43, in load_sales_fact
+    conn.execute(query)
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+  File "C:\Python310\lib\site-packages\sqlalchemy\sql\elements.py", line 514, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1849, in _execute_context
+    return self._exec_single_context(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1989, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 2356, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1970, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Python310\lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Python310\lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 822, in _read_query_result
+    result.read()
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "C:\Python310\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Python310\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.ProgrammingError: (pymysql.err.ProgrammingError) (1146, "Table 'enterpriseretaildwh.fact_sales' doesn't exist")
+[SQL: 
+    INSERT INTO fact_sales (sales_id, product_id, store_id, quantity, total_sales, sale_date)
+    SELECT
+        sales_id,
+        product_id,
+        store_id,
+        quantity,
+        total_sales,
+        sale_date
+    FROM sales_with_details;
+    ]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-09-25 08:21:06,570 - INFO - Executing load_inventory_levels_by_store query.
+2024-09-25 08:21:06,571 - ERROR - An error occurred while loading fact_inventory: (pymysql.err.ProgrammingError) (1146, "Table 'enterpriseretaildwh.fact_inventory' doesn't exist")
+[SQL: 
+    INSERT INTO fact_inventory (product_id, store_id, quantity_on_hand, last_updated)
+    SELECT
+        product_id,
+        store_id,
+        quantity_on_hand,
+        last_updated
+    FROM staging_inventory;
+    ]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1970, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Python310\lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Python310\lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 822, in _read_query_result
+    result.read()
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "C:\Python310\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Python310\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.ProgrammingError: (1146, "Table 'enterpriseretaildwh.fact_inventory' doesn't exist")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\EnterpriseRetailDWH\script\load.py", line 64, in load_inventory_fact
+    conn.execute(query)
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+  File "C:\Python310\lib\site-packages\sqlalchemy\sql\elements.py", line 514, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1849, in _execute_context
+    return self._exec_single_context(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1989, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 2356, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1970, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Python310\lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Python310\lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 822, in _read_query_result
+    result.read()
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "C:\Python310\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Python310\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.ProgrammingError: (pymysql.err.ProgrammingError) (1146, "Table 'enterpriseretaildwh.fact_inventory' doesn't exist")
+[SQL: 
+    INSERT INTO fact_inventory (product_id, store_id, quantity_on_hand, last_updated)
+    SELECT
+        product_id,
+        store_id,
+        quantity_on_hand,
+        last_updated
+    FROM staging_inventory;
+    ]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-09-25 08:21:06,573 - INFO - Executing load_inventory_levels_by_store query.
+2024-09-25 08:21:06,574 - ERROR - An error occurred while loading sales_fact: (pymysql.err.ProgrammingError) (1146, "Table 'enterpriseretaildwh.monthly_sales_summary' doesn't exist")
+[SQL: 
+    INSERT IGNORE INTO monthly_sales_summary (product_id, month, year, total_sales)
+    SELECT 
+        product_id,
+        month,
+        year,
+        total_sales
+    FROM monthly_sales_summary_source;  -- Ensure this is the correct source table
+    ]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1970, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Python310\lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Python310\lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 822, in _read_query_result
+    result.read()
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "C:\Python310\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Python310\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.ProgrammingError: (1146, "Table 'enterpriseretaildwh.monthly_sales_summary' doesn't exist")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\EnterpriseRetailDWH\script\load.py", line 86, in load_monthly_sales_summary
+    conn.execute(query)
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+  File "C:\Python310\lib\site-packages\sqlalchemy\sql\elements.py", line 514, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1849, in _execute_context
+    return self._exec_single_context(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1989, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 2356, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1970, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Python310\lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Python310\lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 822, in _read_query_result
+    result.read()
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "C:\Python310\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Python310\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.ProgrammingError: (pymysql.err.ProgrammingError) (1146, "Table 'enterpriseretaildwh.monthly_sales_summary' doesn't exist")
+[SQL: 
+    INSERT IGNORE INTO monthly_sales_summary (product_id, month, year, total_sales)
+    SELECT 
+        product_id,
+        month,
+        year,
+        total_sales
+    FROM monthly_sales_summary_source;  -- Ensure this is the correct source table
+    ]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-09-25 08:21:06,576 - INFO - Executing load_inventory_levels_by_store query.
+2024-09-25 08:21:06,577 - ERROR - An error occurred while loading inventory_levels_by_store: (pymysql.err.ProgrammingError) (1146, "Table 'enterpriseretaildwh.inventory_levels_by_store' doesn't exist")
+[SQL: 
+    INSERT IGNORE INTO inventory_levels_by_store (store_id, total_inventory)
+    SELECT 
+        store_id,
+        total_inventory
+    FROM aggregated_inventory_levels;
+    ]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1970, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Python310\lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Python310\lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 822, in _read_query_result
+    result.read()
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "C:\Python310\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Python310\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.ProgrammingError: (1146, "Table 'enterpriseretaildwh.inventory_levels_by_store' doesn't exist")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\EnterpriseRetailDWH\script\load.py", line 106, in load_inventory_levels_by_store
+    conn.execute(query)
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+  File "C:\Python310\lib\site-packages\sqlalchemy\sql\elements.py", line 514, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1849, in _execute_context
+    return self._exec_single_context(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1989, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 2356, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\base.py", line 1970, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Python310\lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Python310\lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "C:\Python310\lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 822, in _read_query_result
+    result.read()
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Python310\lib\site-packages\pymysql\connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "C:\Python310\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "C:\Python310\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.ProgrammingError: (pymysql.err.ProgrammingError) (1146, "Table 'enterpriseretaildwh.inventory_levels_by_store' doesn't exist")
+[SQL: 
+    INSERT IGNORE INTO inventory_levels_by_store (store_id, total_inventory)
+    SELECT 
+        store_id,
+        total_inventory
+    FROM aggregated_inventory_levels;
+    ]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-09-25 08:21:06,578 - INFO - Data Loading completed successfully...... 
+2024-09-25 08:25:35,975 - INFO - Data Extraction started...... 
+2024-09-25 08:25:36,638 - INFO - Data Extraction completed successfully...... 
+2024-09-25 08:25:41,650 - INFO - Data Transfromation started...... 
+2024-09-25 08:25:42,080 - INFO - Data Transfromation completed successfully...... 
+2024-09-25 08:25:46,312 - INFO - Data Loading started...... 
+2024-09-25 08:25:46,325 - INFO - Executing load_inventory_levels_by_store query.
+2024-09-25 08:25:46,355 - INFO - Data loaded into inventory_levels_by_store.
+2024-09-25 08:25:46,356 - INFO - Executing load_inventory_levels_by_store query.
+2024-09-25 08:25:46,369 - INFO - Data loaded into inventory_levels_by_store.
+2024-09-25 08:25:46,370 - INFO - Executing load_inventory_levels_by_store query.
+2024-09-25 08:25:46,383 - INFO - Data loaded into inventory_levels_by_store.
+2024-09-25 08:25:46,385 - INFO - Executing load_inventory_levels_by_store query.
+2024-09-25 08:25:46,393 - INFO - Data loaded into inventory_levels_by_store.
+2024-09-25 08:25:46,394 - INFO - Data Loading completed successfully...... 
+2024-09-25 08:36:26,507 - INFO - Data Extraction completed successfully...... 
+2024-09-25 08:36:27,541 - INFO - Executing load_inventory_levels_by_store query.
+2024-09-25 08:36:27,562 - INFO - Data loaded into inventory_levels_by_store.
+2024-09-25 08:36:27,563 - INFO - Executing load_inventory_levels_by_store query.
+2024-09-25 08:36:27,572 - INFO - Data loaded into inventory_levels_by_store.
+2024-09-25 08:36:27,573 - INFO - Executing load_inventory_levels_by_store query.
+2024-09-25 08:36:27,582 - INFO - Data loaded into inventory_levels_by_store.
+2024-09-25 08:36:27,582 - INFO - Executing load_inventory_levels_by_store query.
+2024-09-25 08:36:27,591 - INFO - Data loaded into inventory_levels_by_store.

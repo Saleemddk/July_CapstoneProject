@@ -1,9 +1,21 @@
 import pandas as pd
 import json
 from sqlalchemy import create_engine,text
+from script.config import MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE
+import logging
+
+# Configure the logging
+logging.basicConfig(
+    filename='logs/etlprocess.log',  # Name of the log file
+    filemode='a',        # 'a' to append, 'w' to overwrite
+    format='%(asctime)s - %(levelname)s - %(message)s',  # Log format
+    level=logging.INFO    # Set the logging level
+)
+logger = logging.getLogger(__name__)
 
 # create mysql database commection
-mysql_engine = create_engine('mysql+pymysql://root:Admin%40143@localhost:3308/enterpriseretaildwh')
+#mysql_engine = create_engine('mysql+pymysql://root:Admin%40143@localhost:3308/enterpriseretaildwh')
+mysql_engine = create_engine(f'mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DATABASE}')
 
 
 def filter_sales_data():
@@ -71,11 +83,13 @@ def aggregate_inventory_levels():
 
 
 if __name__=="__main__":
+    logger.info("Data Transfromation started...... ")
     filter_sales_data()
     route_sales_data()
     aggregate_sales_data()
     join_sales_data()
     aggregate_inventory_levels()
+    logger.info("Data Transfromation completed successfully...... ")
 
 
     
